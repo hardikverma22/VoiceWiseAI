@@ -15,11 +15,17 @@ export default defineSchema({
         title: v.optional(v.string()),
         transcript: v.optional(v.string()),
         summary: v.optional(v.string()),
+        embedding: v.optional(v.array(v.float64())),
         generatingTranscript: v.boolean(),
         generatingTitle: v.boolean(),
         generatingActionItems: v.boolean(),
     })
-        .index('by_userId', ['userId']),
+        .index('by_userId', ['userId'])
+        .vectorIndex('by_embedding', {
+            vectorField: 'embedding',
+            dimensions: 768,
+            filterFields: ['userId'],
+        }),
 
     actionItems: defineTable({
         audioNoteId: v.id('audioNotes'),

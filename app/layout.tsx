@@ -23,7 +23,7 @@ export default function RootLayout({
   return (
     <ConvexClientProvider>
       <html lang="en">
-        <body className={cn(lexend.className, "bg-gradient-to-b from-stone-100 to-pink-100")}>
+        <body className={cn(lexend.className, "")}>
           <Header />
 
           <main className="h-[calc(100dvh-5.25rem)] container lg:px-20 px-5">

@@ -1,4 +1,6 @@
-export function Loader() {
+import {Skeleton} from "@/components/ui/skeleton";
+
+export default function Loader() {
   return (
     <svg
       aria-hidden="true"
@@ -18,3 +20,39 @@ export function Loader() {
     </svg>
   );
 }
+
+export const SkeletonLoader = ({loadingText = "Loading..."}: {loadingText: string}) => {
+  return (
+    <div className="flex flex-col gap-1 justify-start items-start h-full">
+      <Skeleton className="h-4 w-full" />
+      <Skeleton className="h-4 w-3/4" />
+      <Skeleton className="h-4 w-full" />
+      <Skeleton className="h-4 w-2/3" />
+      <Skeleton className="h-4 w-4/5" />
+      <Skeleton className="h-4 w-5/6" />
+      <Skeleton className="h-4 w-full flex gap-2 justify-center items-center">
+        <Loader /> {loadingText}
+      </Skeleton>
+      <Skeleton className="h-4 w-5/6" />
+      <Skeleton className="h-4 w-4/5" />
+      <Skeleton className="h-4 w-2/3" />
+      <Skeleton className="h-4 w-full" />
+      <Skeleton className="h-4 w-3/4" />
+      <Skeleton className="h-4 w-full" />
+    </div>
+  );
+};
+
+export const SkeletonActionItems = () => {
+  return (
+    <div className="flex flex-col gap-2 justify-center items-center h-full shadow-lg">
+      <Skeleton className="h-10 w-full flex-1" />
+      <Skeleton className="h-10 w-full flex-1" />
+      <Skeleton className="h-10 w-full flex-1 flex gap-2 justify-center items-center">
+        <Loader /> Loading Action Items
+      </Skeleton>
+      <Skeleton className="h-10 w-full flex-1" />
+      <Skeleton className="h-10 w-full flex-1" />
+    </div>
+  );
+};

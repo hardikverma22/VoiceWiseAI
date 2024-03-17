@@ -1,7 +1,7 @@
 import { ConvexError, v } from "convex/values";
 import { internalMutation, mutation, query } from "./_generated/server";
 import { Doc, Id } from './_generated/dataModel';
-import { internal } from "./_generated/api";
+import { api, internal } from "./_generated/api";
 
 export const generateUploadUrl = mutation(async (ctx) => {
     return await ctx.storage.generateUploadUrl();
@@ -17,7 +17,7 @@ export const createAudioNote = mutation({
         }
         const { subject } = identity;
         const url = await ctx.storage.getUrl(args.storageId);
-        console.log(url);
+
         if (url && subject) {
             const noteId = await ctx.db.insert("audioNotes", {
                 userId: subject as Doc<"users">["_id"],
@@ -28,7 +28,7 @@ export const createAudioNote = mutation({
                 audioFileUrl: url
             })
 
-            ctx.scheduler.runAfter(0, internal.whisper.chat, {
+            await ctx.scheduler.runAfter(0, api.whisper.chat, {
                 fileUrl: url,
                 id: noteId,
             });
@@ -57,11 +57,6 @@ export const saveTranscript = internalMutation({
             id: args.id,
             transcript,
         });
-
-        // await ctx.scheduler.runAfter(0, internal.together.embed, {
-        //     id: args.id,
-        //     transcript: transcript,
-        // });
     },
 });
 
@@ -76,8 +71,6 @@ export const getNotes = query({
             .query('audioNotes')
             .withIndex('by_userId', (q) => q.eq('userId', userId))
             .collect();
-
-        console.log(notes);
 
         const results = Promise.all(
             notes.map(async (note) => {

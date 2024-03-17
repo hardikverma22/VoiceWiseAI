@@ -4,6 +4,7 @@ import useAudio from "@/hooks/useAudio";
 import Circle from "@/components/Circle";
 import PlayControls from "@/components/PlayControls";
 import RecordingControls from "@/components/RecordingControls";
+import ProcessingAlertDialog from "@/components/ProcessingAlertDialog";
 
 export default function page() {
   const {
@@ -16,6 +17,9 @@ export default function page() {
     elapsedSeconds,
     isRecording,
     currentTime,
+    showAlertDialog,
+    setShowAlertDialog,
+    uploading,
     // maxSliderValue,
     // currentSliderValue,
   } = useAudio();
@@ -54,6 +58,11 @@ export default function page() {
           startRecording={startRecording}
         />
       </div>
+      <ProcessingAlertDialog
+        showAlertDialog={showAlertDialog}
+        setShowAlertDialog={setShowAlertDialog}
+        uploading={uploading}
+      />
     </div>
   );
 }

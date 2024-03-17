@@ -1,5 +1,5 @@
 "use client";
-import {Loader} from "@/components/Loader";
+import Loader from "@/components/Loader";
 import {Button} from "@/components/ui/button";
 import {SignInButton, UserButton} from "@clerk/nextjs";
 import {AuthLoading, Authenticated, Unauthenticated} from "convex/react";
@@ -20,22 +20,22 @@ export const Header = () => {
         </div>
       </Link>
       <div className="flex gap-5 items-center">
-        <Link
-          href="/dashboard"
-          className="hover:underline hover:underline-offset-2 text-md font-medium"
-        >
-          Recordings
-        </Link>
-        <Link
-          href="/actionitems"
-          className="hover:underline hover:underline-offset-2 text-md font-medium"
-        >
-          <div className="flex items-center">Action Items</div>
-        </Link>
         <AuthLoading>
           <Loader />
         </AuthLoading>
         <Authenticated>
+          <Link
+            href="/dashboard"
+            className="hover:underline hover:underline-offset-2 text-md font-medium"
+          >
+            Recordings
+          </Link>
+          <Link
+            href="/actionitems"
+            className="hover:underline hover:underline-offset-2 text-md font-medium"
+          >
+            <div className="flex items-center">Action Items</div>
+          </Link>
           <UserButton />
         </Authenticated>
         <Unauthenticated>

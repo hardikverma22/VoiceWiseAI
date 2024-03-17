@@ -27,3 +27,12 @@ export const generateRainbowColors = (count: number) => {
   }
   return colors;
 };
+
+export const getDisplayDate = (time: number) => {
+  return new Date(time).toLocaleDateString("en-us", {
+    weekday: "short",
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  })
+} 

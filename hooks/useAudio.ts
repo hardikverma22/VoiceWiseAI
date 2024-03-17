@@ -8,11 +8,12 @@ const useAudio = () => {
     const [permission, setPermission] = useState<undefined | boolean>(undefined);
     const [mediaRecorder, setMediaRecorder] = useState<MediaRecorder | null>(null);
     const [isRecording, setIsRecording] = useState(false);
+    const [uploading, setUploading] = useState(false);
+
 
     const [isPlaying, setIsPlaying] = useState(false);
     const [currentTime, setCurrentTime] = useState(0);
-    const [duration, setDuration] = useState(0);
-
+    // const [duration, setDuration] = useState(0);
 
     const [audioURL, setAudioURL] = useState<undefined | string>(undefined); //for playing
     const [audioBlob, setAudioBlob] = useState<Blob | undefined>(undefined); //for sending to api later
@@ -23,6 +24,8 @@ const useAudio = () => {
 
     const [pending, startTransaction] = useTransition();
     const generateUploadUrl = useMutation(api.audio.generateUploadUrl);
+
+    const [showAlertDialog, setShowAlertDialog] = useState(false);
 
     useEffect(() => {
         if (!audioBlob) return;
@@ -105,6 +108,8 @@ const useAudio = () => {
     };
 
     const triggerProcessAudio = async () => {
+        setShowAlertDialog(true);
+        setUploading(true);
         const uploadUrl = await generateUploadUrl();
         const result = await fetch(uploadUrl, {
             method: "POST",
@@ -114,6 +119,7 @@ const useAudio = () => {
 
         const { storageId } = await result.json();
         if (!storageId) return;
+        setUploading(false);
         startTransaction(async () => {
             const planId = await processAudio(storageId);
 
@@ -133,6 +139,9 @@ const useAudio = () => {
         startRecording,
         isRecording,
         currentTime,
+        showAlertDialog,
+        setShowAlertDialog,
+        uploading,
         // maxSliderValue: duration,
         // currentSliderValue: currentTime
     }

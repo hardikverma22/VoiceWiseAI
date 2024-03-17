@@ -5,7 +5,7 @@ import {
     internalMutation,
     internalQuery,
 } from './_generated/server';
-import { v } from 'convex/values';
+import { ConvexError, v } from 'convex/values';
 import { internal } from './_generated/api';
 import { z } from 'zod';
 // import { actionWithUser } from './utils';
@@ -123,66 +123,72 @@ export const saveSummary = internalMutation({
     },
 });
 
-// export type SearchResult = {
-//     id: string;
-//     score: number;
-// };
+export type SearchResult = {
+    id: string;
+    score: number;
+};
 
-// export const similarNotes = action({
-//     args: {
-//         searchQuery: v.string(),
-//     },
-//     handler: async (ctx, args): Promise<SearchResult[]> => {
-//         const getEmbedding = await togetherai.embeddings.create({
-//             input: [args.searchQuery.replace('/n', ' ')],
-//             model: 'togethercomputer/m2-bert-80M-32k-retrieval',
-//         });
-//         const embedding = getEmbedding.data[0].embedding;
+export const similarNotes = action({
+    args: {
+        searchQuery: v.string(),
+    },
+    handler: async (ctx, args): Promise<SearchResult[]> => {
+        const identity = await ctx.auth.getUserIdentity();
+        if (!identity) {
+            throw new ConvexError("Not Auenticated while search similar notes");
+        }
 
-//         // 2. Then search for similar notes
-//         const results = await ctx.vectorSearch('notes', 'by_embedding', {
-//             vector: embedding,
-//             limit: 16,
-//             filter: (q) => q.eq('userId', ctx.userId), // Only search my notes.
-//         });
+        const getEmbedding = await togetherai.embeddings.create({
+            input: [args.searchQuery.replace('/n', ' ')],
+            model: 'togethercomputer/m2-bert-80M-32k-retrieval',
 
-//         console.log({ results });
+        });
+        const embedding = getEmbedding.data[0].embedding;
 
-//         return results.map((r) => ({
-//             id: r._id,
-//             score: r._score,
-//         }));
-//     },
-// });
+        // 2. Then search for similar notes
+        const results = await ctx.vectorSearch('audioNotes', 'by_embedding', {
+            vector: embedding,
+            limit: 16,
+            filter: (q) => q.eq('userId', identity.subject), // Only search my notes.
+        });
 
-// export const embed = internalAction({
-//     args: {
-//         id: v.id('notes'),
-//         transcript: v.string(),
-//     },
-//     handler: async (ctx, args) => {
-//         const getEmbedding = await togetherai.embeddings.create({
-//             input: [args.transcript.replace('/n', ' ')],
-//             model: 'togethercomputer/m2-bert-80M-32k-retrieval',
-//         });
-//         const embedding = getEmbedding.data[0].embedding;
+        console.log({ results });
 
-//         await ctx.runMutation(internal.together.saveEmbedding, {
-//             id: args.id,
-//             embedding,
-//         });
-//     },
-// });
+        return results.map((r) => ({
+            id: r._id,
+            score: r._score,
+        }));
+    },
+});
 
-// export const saveEmbedding = internalMutation({
-//     args: {
-//         id: v.id('notes'),
-//         embedding: v.array(v.float64()),
-//     },
-//     handler: async (ctx, args) => {
-//         const { id, embedding } = args;
-//         await ctx.db.patch(id, {
-//             embedding: embedding,
-//         });
-//     },
-// });
+export const embed = internalAction({
+    args: {
+        id: v.id('audioNotes'),
+        transcript: v.string(),
+    },
+    handler: async (ctx, args) => {
+        const getEmbedding = await togetherai.embeddings.create({
+            input: [args.transcript.replace('/n', ' ')],
+            model: 'togethercomputer/m2-bert-80M-32k-retrieval',
+        });
+        const embedding = getEmbedding.data[0].embedding;
+
+        await ctx.runMutation(internal.together.saveEmbedding, {
+            id: args.id,
+            embedding,
+        });
+    },
+});
+
+export const saveEmbedding = internalMutation({
+    args: {
+        id: v.id('audioNotes'),
+        embedding: v.array(v.float64()),
+    },
+    handler: async (ctx, args) => {
+        const { id, embedding } = args;
+        await ctx.db.patch(id, {
+            embedding: embedding,
+        });
+    },
+});

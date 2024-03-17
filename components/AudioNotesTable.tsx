@@ -16,11 +16,7 @@ import {Trash} from "lucide-react";
 import Link from "next/link";
 import {MouseEvent} from "react";
 
-export default function AudioNotesTable({
-  notes,
-}: {
-  notes: (Doc<"audioNotes"> & {count: number})[] | undefined | null;
-}) {
+export default function AudioNotesTable({notes}: {notes: (Doc<"audioNotes"> & {count: number})[]}) {
   const deleteNote = useMutation(api.audio.removeNote);
 
   const handleDeleteNote = (e: MouseEvent<HTMLButtonElement>, noteId: Id<"audioNotes">) => {
@@ -32,7 +28,6 @@ export default function AudioNotesTable({
     <Table>
       <TableHeader>
         <TableRow className="w-full overflow-ellipsis">
-          {/* <TableHead className="w-[100px]">Invoice</TableHead> */}
           <TableHead className="max-w-[500px]">Title</TableHead>
           <TableHead>Generation Time</TableHead>
           <TableHead className="text-center">Tasks</TableHead>
@@ -41,7 +36,7 @@ export default function AudioNotesTable({
       </TableHeader>
       <TableBody className="w-full">
         {notes?.map((note) => (
-          <Link href={`recording/${note._id}`} legacyBehavior={true}>
+          <Link href={`recording/${note._id}`} legacyBehavior={true} key={note._id}>
             <TableRow key={note._id} className="cursor-pointer">
               <TableCell
                 className="max-w-[400px] font-medium truncate"

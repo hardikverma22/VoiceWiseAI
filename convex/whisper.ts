@@ -1,6 +1,6 @@
 "use node";
 
-import { internalAction, internalMutation } from './_generated/server';
+import { action, internalAction, internalMutation } from './_generated/server';
 import { v } from 'convex/values';
 import Replicate from 'replicate';
 import { api, internal } from './_generated/api';
@@ -17,7 +17,7 @@ interface whisperOutput {
     translation: string | null;
 }
 
-export const chat = internalAction({
+export const chat = action({
     args: {
         fileUrl: v.string(),
         id: v.id('audioNotes'),
@@ -48,6 +48,11 @@ export const chat = internalAction({
         await ctx.runMutation(internal.audio.saveTranscript, {
             id: args.id,
             transcript,
+        });
+
+        await ctx.scheduler.runAfter(0, internal.together.embed, {
+            id: args.id,
+            transcript: transcript,
         });
     },
 });
