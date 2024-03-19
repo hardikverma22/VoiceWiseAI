@@ -180,7 +180,7 @@ export const getActionItems = query({
     handler: async (ctx) => {
         const identity = await ctx.auth.getUserIdentity();
         if (!identity) {
-            throw new ConvexError("Not Authenticated for getting actions items");
+            return null;
         }
 
         const { subject: userId } = identity;

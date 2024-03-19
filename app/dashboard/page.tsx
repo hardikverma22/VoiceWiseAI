@@ -9,6 +9,7 @@ import Image from "next/image";
 import Link from "next/link";
 import {Input} from "@/components/ui/input";
 import {useState} from "react";
+import RecordNew from "@/components/RecordNew";
 
 export default function page() {
   const notes = useQuery(api.audio.getNotes, {});
@@ -39,21 +40,7 @@ export default function page() {
       </div>
     );
 
-  if (notes && notes.length === 0)
-    return (
-      <div className="flex justify-center items-center w-full h-full min-h-[calc(100dvh-72px)] mt-[72px]">
-        <div className="flex flex-col gap-5 justify-center items-center">
-          <h2 className="text-2xl font-bold">Record your first Note</h2>
-          <Image src="/record.svg" alt="record now" width={300} height={300} />
-          <Link href="/record">
-            <Button className="flex gap-2 w-full mt-5" size="lg">
-              <Mic className="h-4 w-4" />
-              <span className="text-base">Record</span>
-            </Button>
-          </Link>
-        </div>
-      </div>
-    );
+  if (notes && notes.length === 0) return <RecordNew />;
 
   return (
     <section className="h-full flex justify-start items-center flex-col pt-10">

@@ -6,6 +6,7 @@ import {SkeletonActionItems} from "@/components/Loader";
 import ActionItems from "@/components/ActionItems";
 import {StatusFilter} from "@/components/StatusFilter";
 import {useState} from "react";
+import RecordNew from "@/components/RecordNew";
 
 export type Status = "Done" | "Pending" | "Unset" | "All";
 
@@ -31,16 +32,19 @@ export default function RecordingDetails() {
     setFilteredActionItems(newItems);
   };
 
+  if (finalActionItems && finalActionItems.length === 0) return <RecordNew />;
+
   return (
     <section className="flex flex-col pt-12 min-h-[calc(100dvh-72px)] mt-[72px]">
-      <div className="flex justify-between items-center pb-5">
-        <h2 className="text-xl font-semibold text-gray-700 ">Action Items</h2>
-        <StatusFilter status={status} handleFilterActionItems={handleFilterActionItems} />
-      </div>
-      {finalActionItems && finalActionItems.length > 0 ? (
-        <ActionItems actionItems={finalActionItems} />
-      ) : (
-        <SkeletonActionItems />
+      {!finalActionItems && <SkeletonActionItems />}
+      {finalActionItems && finalActionItems.length > 0 && (
+        <>
+          <div className="flex justify-between items-center pb-5">
+            <h2 className="text-xl font-semibold text-gray-700 ">Action Items</h2>
+            <StatusFilter status={status} handleFilterActionItems={handleFilterActionItems} />
+          </div>
+          <ActionItems actionItems={finalActionItems} />
+        </>
       )}
     </section>
   );
