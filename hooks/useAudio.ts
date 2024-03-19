@@ -13,7 +13,7 @@ const useAudio = () => {
 
     const [isPlaying, setIsPlaying] = useState(false);
     const [currentTime, setCurrentTime] = useState(0);
-    // const [duration, setDuration] = useState(0);
+    const [duration, setDuration] = useState(0);
 
     const [audioURL, setAudioURL] = useState<undefined | string>(undefined); //for playing
     const [audioBlob, setAudioBlob] = useState<Blob | undefined>(undefined); //for sending to api later
@@ -34,7 +34,9 @@ const useAudio = () => {
 
         const stopPlaying = () => setIsPlaying(false);
 
-        const setTime = () => setCurrentTime(audioRef.current!.currentTime)
+        const setTime = () => {
+            setCurrentTime(audioRef.current!.currentTime)
+        }
         // const setDurationTime = (e: Event) => {
         //     console.log("metadata loaded", audioRef.current!.duration);
         //     setDuration(audioRef.current!.duration);
@@ -57,8 +59,22 @@ const useAudio = () => {
     const playOrPuase = () => {
         if (!audioURL || !audioRef || !audioRef.current) return;
 
-        if (!isPlaying) audioRef.current?.play();
-        else audioRef.current.pause();
+        if (!isPlaying) {
+            audioRef.current?.play();
+            timer.current = setInterval(() => {
+                setDuration((prevSeconds) => {
+                    if (prevSeconds == 0) {
+                        clearInterval(timer.current);
+                        return elapsedSeconds;
+                    }
+                    return prevSeconds - 1
+                });
+            }, 1000);
+        }
+        else {
+            audioRef.current.pause();
+            clearInterval(timer.current)
+        }
         setIsPlaying(!isPlaying);
     };
 
@@ -70,6 +86,7 @@ const useAudio = () => {
             setIsRecording(false);
             clearInterval(timer.current);
             timer.current = undefined;
+            setDuration(elapsedSeconds);
             return;
         }
         if ("MediaRecorder" in window) {
@@ -142,7 +159,7 @@ const useAudio = () => {
         showAlertDialog,
         setShowAlertDialog,
         uploading,
-        // maxSliderValue: duration,
+        duration,
         // currentSliderValue: currentTime
     }
 }

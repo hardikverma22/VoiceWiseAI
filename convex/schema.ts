@@ -34,6 +34,6 @@ export default defineSchema({
         done: v.boolean()
     })
         .index('by_noteId', ['audioNoteId', 'done'])
-        .index('by_userId', ['userId'])
+        .index('by_userId', ['userId', 'done'])
 
 });

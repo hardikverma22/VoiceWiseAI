@@ -25,8 +25,7 @@ export default function RootLayout({
       <html lang="en">
         <body className={cn(lexend.className, "")}>
           <Header />
-
-          <main className="h-[calc(100dvh-5.25rem)] container lg:px-20 px-5">
+          <main className="container lg:px-20 px-5 z-10 min-h-[calc(100dvh-72px)] mt-[72px]">
             {children}
             <Progress />
           </main>

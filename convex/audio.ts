@@ -132,7 +132,19 @@ export const removeNote = mutation({
             if (existing.userId !== userId) {
                 throw new ConvexError('Not your note');
             }
+
+            await ctx.storage.delete(existing.storageId as Id<"_storage">);
+
             await ctx.db.delete(args.id);
+
+            const actionItems = await ctx.db
+                .query('actionItems')
+                .withIndex('by_noteId', (q) => q.eq('audioNoteId', args.id))
+                .collect();
+
+            for (let item of actionItems) {
+                await ctx.db.delete(item._id);
+            }
         }
     },
 });
@@ -163,3 +175,32 @@ export const updatActionItemStatus = mutation({
     },
 });
 
+export const getActionItems = query({
+    args: {},
+    handler: async (ctx) => {
+        const identity = await ctx.auth.getUserIdentity();
+        if (!identity) {
+            throw new ConvexError("Not Authenticated for getting actions items");
+        }
+
+        const { subject: userId } = identity;
+
+        const actionItems = await ctx.db
+            .query('actionItems')
+            .withIndex('by_userId', (q) => q.eq('userId', userId))
+            .collect();
+
+        let fullActionItems = [];
+
+        for (let item of actionItems) {
+            const note = await ctx.db.get(item.audioNoteId);
+            if (!note) continue;
+            fullActionItems.push({
+                ...item,
+                title: note.title,
+            });
+        }
+
+        return fullActionItems;
+    },
+});

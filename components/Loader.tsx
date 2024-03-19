@@ -45,7 +45,7 @@ export const SkeletonLoader = ({loadingText = "Loading..."}: {loadingText: strin
 
 export const SkeletonActionItems = () => {
   return (
-    <div className="flex flex-col gap-2 justify-center items-center h-full shadow-lg">
+    <div className="flex flex-col gap-2 justify-center items-center h-full min-h-[500px]">
       <Skeleton className="h-10 w-full flex-1" />
       <Skeleton className="h-10 w-full flex-1" />
       <Skeleton className="h-10 w-full flex-1 flex gap-2 justify-center items-center">

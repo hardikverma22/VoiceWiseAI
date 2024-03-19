@@ -20,6 +20,7 @@ export default function page() {
     showAlertDialog,
     setShowAlertDialog,
     uploading,
+    duration,
     // maxSliderValue,
     // currentSliderValue,
   } = useAudio();
@@ -28,7 +29,7 @@ export default function page() {
     return <div className="w-full h-full flex justify-center items-center">No Permission</div>;
 
   return (
-    <div className="flex justify-center items-center h-full">
+    <section className="flex justify-center items-center h-full px-5">
       <div
         className="w-96 h-[36rem] rounded-t-full rounded-b-full bg-offWhite 
                       border-4 border-slate-50 shadow-xl flex items-center flex-col gap-10"
@@ -41,7 +42,7 @@ export default function page() {
         />
         <div>
           <p className="text-3xl tracking-wider text-customSlate">
-            {audioURL ? convertSecondsToHHMMSS(currentTime) : formatTime(elapsedSeconds)}
+            {audioURL ? formatTime(duration) : formatTime(elapsedSeconds)}
           </p>
         </div>
 
@@ -63,6 +64,6 @@ export default function page() {
         setShowAlertDialog={setShowAlertDialog}
         uploading={uploading}
       />
-    </div>
+    </section>
   );
 }

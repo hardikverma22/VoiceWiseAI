@@ -1,14 +1,10 @@
 import Loader from "@/components/Loader";
 import {
   AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
   AlertDialogContent,
   AlertDialogDescription,
-  AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-  AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import {BotIcon} from "lucide-react";
 import {Dispatch, SetStateAction} from "react";

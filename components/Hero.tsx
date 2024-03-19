@@ -8,8 +8,9 @@ export default function Hero() {
   const {openSignInPopupOrRedirect} = useAuth();
   return (
     <section
-      className="w-full h-full 
-                flex justify-center items-center flex-col gap-10"
+      className="w-full 
+                flex justify-center items-center flex-col gap-10
+                min-h-[calc(100dvh-72px)] mt-[72px]"
     >
       <h1
         className="font-bold text-center
@@ -29,7 +30,7 @@ export default function Hero() {
         </p>
       </h2>
       <Button onClick={openSignInPopupOrRedirect} className="flex gap-2" size="lg">
-        <AudioLines className="text-yellow-500 h-5 w-5" />
+        <AudioLines className="h-5 w-5" />
         Try Now
       </Button>
     </section>

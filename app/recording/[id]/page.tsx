@@ -12,32 +12,45 @@ export default function RecordingDetails({params}: {params: {id: string}}) {
   const data = useQuery(api.audio.getNote, {id: params.id});
 
   return (
-    <div className="flex flex-col pt-12 h-full">
-      <div className="flex justify-between items-center">
+    <section className="flex flex-col pt-6 h-full ">
+      <div
+        className="flex flex-col md:flex-row md:justify-between 
+                    md:items-center border-b-2 px-2 py-1 rounded-lg shadow-sm border-b-gray-300"
+      >
         {data && (
           <>
-            <h1 className="font-bold text-lg">
+            <h1
+              title={data.note.generatingTitle ? "Generating title..." : data.note.title}
+              className="font-bold text-xl
+                         tracking-wide
+                        line-clamp-1
+                        max-w-[70%]
+                        "
+            >
               {data.note.generatingTitle ? "Generating title..." : data.note.title}
             </h1>
             <span>{getDisplayDate(data.note._creationTime)}</span>
           </>
         )}
       </div>
-      <div className="flex gap-20 mt-5 h-full ">
+      <div
+        className="flex flex-col md:flex-row gap-20 mt-5 
+                    md:h-full"
+      >
         <div className="w-full">
-          <Tabs defaultValue="summary" className="w-full h-full">
+          <Tabs defaultValue="transcript" className="w-full md:h-full">
             <TabsList>
-              <TabsTrigger value="summary">Summary</TabsTrigger>
               <TabsTrigger value="transcript">Transcript</TabsTrigger>
+              <TabsTrigger value="summary">Summary</TabsTrigger>
             </TabsList>
-            <TabsContent value="transcript" className="ml-2 pt-5 ">
+            <TabsContent value="transcript" className="ml-2 pt-5  h-fit">
               {data && data.note?.transcript && !data.note.generatingTranscript ? (
                 <Paragraph text={data.note.transcript} />
               ) : (
                 <SkeletonLoader loadingText="Loading Transcript" />
               )}
             </TabsContent>
-            <TabsContent value="summary" className="ml-2">
+            <TabsContent value="summary" className="ml-2 h-fit">
               <div className="pt-5">
                 {data && data.note?.summary ? (
                   <Paragraph text={data.note.summary} />
@@ -57,13 +70,13 @@ export default function RecordingDetails({params}: {params: {id: string}}) {
           )}
         </div>
       </div>
-    </div>
+    </section>
   );
 }
 
 const Paragraph = ({text}: {text: string}) => {
   return (
-    <ScrollArea className="pb-10 h-[500px] w-full rounded-md ">
+    <ScrollArea className="pb-10 min-h-[100px] md:h-[500px] w-full rounded-md ">
       <p
         className="text-lg font-[300] leading-[114.3%] tracking-[-0.6px] 
   lg:text-xl"

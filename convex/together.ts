@@ -138,6 +138,7 @@ export const similarNotes = action({
             throw new ConvexError("Not Auenticated while search similar notes");
         }
 
+        console.log(args.searchQuery);
         const getEmbedding = await togetherai.embeddings.create({
             input: [args.searchQuery.replace('/n', ' ')],
             model: 'togethercomputer/m2-bert-80M-32k-retrieval',
@@ -151,8 +152,6 @@ export const similarNotes = action({
             limit: 16,
             filter: (q) => q.eq('userId', identity.subject), // Only search my notes.
         });
-
-        console.log({ results });
 
         return results.map((r) => ({
             id: r._id,

@@ -1,29 +1,10 @@
 "use client";
-import {Button} from "@/components/ui/button";
-import {
-  Table,
-  TableBody,
-  TableCaption,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-import {api} from "@/convex/_generated/api";
-import {Doc, Id} from "@/convex/_generated/dataModel";
-import {useMutation} from "convex/react";
-import {Trash} from "lucide-react";
+import ConfirmDeletionAlertDialog from "@/components/ConfirmDeletion";
+import {Table, TableBody, TableCell, TableHead, TableHeader, TableRow} from "@/components/ui/table";
+import {Doc} from "@/convex/_generated/dataModel";
 import Link from "next/link";
-import {MouseEvent} from "react";
 
 export default function AudioNotesTable({notes}: {notes: (Doc<"audioNotes"> & {count: number})[]}) {
-  const deleteNote = useMutation(api.audio.removeNote);
-
-  const handleDeleteNote = (e: MouseEvent<HTMLButtonElement>, noteId: Id<"audioNotes">) => {
-    e.stopPropagation();
-    deleteNote({id: noteId});
-  };
-
   return (
     <Table>
       <TableHeader>
@@ -31,7 +12,7 @@ export default function AudioNotesTable({notes}: {notes: (Doc<"audioNotes"> & {c
           <TableHead className="max-w-[500px]">Title</TableHead>
           <TableHead>Generation Time</TableHead>
           <TableHead className="text-center">Tasks</TableHead>
-          <TableHead className="text-right">Action</TableHead>
+          <TableHead className="text-center">Action</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody className="w-full">
@@ -53,14 +34,8 @@ export default function AudioNotesTable({notes}: {notes: (Doc<"audioNotes"> & {c
                 })}
               </TableCell>
               <TableCell className="text-center">{note.count}</TableCell>
-              <TableCell className="text-right p-1">
-                <Button
-                  onClick={(e) => handleDeleteNote(e, note._id)}
-                  variant="link"
-                  className="text-right hover:scale-105 duration-300 transition-all hover:text-red-500"
-                >
-                  <Trash />
-                </Button>
+              <TableCell className="text-center p-1" onClick={(e) => e.preventDefault()}>
+                <ConfirmDeletionAlertDialog noteId={note._id} />
               </TableCell>
             </TableRow>
           </Link>
