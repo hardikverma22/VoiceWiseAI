@@ -22,15 +22,15 @@ const statusList: {
   label: string;
 }[] = [
   {
-    value: "Done",
+    value: "done",
     label: "Done",
   },
   {
-    value: "Pending",
+    value: "pending",
     label: "Pending",
   },
   {
-    value: "All",
+    value: "all",
     label: "Show All",
   },
 ];
@@ -44,6 +44,12 @@ export function StatusFilter({
 }) {
   const [open, setOpen] = React.useState(false);
 
+  const getDisplayTitle = () => {
+    if (status === "unset") return "Filter Status...";
+    const label = statusList.find((currentStatus) => currentStatus.value === status)?.label;
+    return label;
+  };
+
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
@@ -53,9 +59,7 @@ export function StatusFilter({
           aria-expanded={open}
           className="w-[200px] justify-between"
         >
-          {status != "Unset"
-            ? statusList.find((currentStatus) => currentStatus.value === status)?.label
-            : "Filter Status..."}
+          {getDisplayTitle()}
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
@@ -70,6 +74,7 @@ export function StatusFilter({
                   key={currentStatus.label}
                   value={currentStatus.value}
                   onSelect={(currentValue) => {
+                    console.log(currentValue);
                     handleFilterActionItems(currentValue as Status);
                     setOpen(false);
                   }}

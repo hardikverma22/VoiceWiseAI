@@ -8,11 +8,11 @@ import {StatusFilter} from "@/components/StatusFilter";
 import {useEffect, useState} from "react";
 import RecordNew from "@/components/RecordNew";
 
-export type Status = "Done" | "Pending" | "Unset" | "All";
+export type Status = "done" | "pending" | "unset" | "all";
 
 export default function RecordingDetails() {
   const actionItems = useQuery(api.audio.getActionItems, {});
-  const [status, setStatus] = useState<Status>("Unset");
+  const [status, setStatus] = useState<Status>("unset");
   const [filteredActionItems, setFilteredActionItems] = useState<typeof actionItems>(actionItems);
 
   useEffect(() => {
@@ -23,13 +23,13 @@ export default function RecordingDetails() {
     setStatus(status);
     if (!actionItems) return;
 
-    if (status === "All") {
+    if (status === "all") {
       setFilteredActionItems(actionItems);
       return;
     }
 
     const newItems =
-      status === "Done" ? actionItems.filter((a) => a.done) : actionItems.filter((a) => !a.done);
+      status === "done" ? actionItems.filter((a) => a.done) : actionItems.filter((a) => !a.done);
 
     setFilteredActionItems(newItems);
   };
