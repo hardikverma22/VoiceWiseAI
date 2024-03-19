@@ -21,7 +21,6 @@ const ActionItems = ({
     done: boolean,
     e?: MouseEvent<HTMLLIElement>
   ) => {
-    console.log({object: "Clicked Action Items :" + id});
     if (e) {
       e?.stopPropagation();
       e.preventDefault();
@@ -80,6 +79,9 @@ const ActionItems = ({
           </li>
         ))}
       </ul>
+      {actionItems && actionItems.length == 0 && (
+        <div>No Action Items exist for the selecetd filter.</div>
+      )}
     </ScrollArea>
   );
 };
