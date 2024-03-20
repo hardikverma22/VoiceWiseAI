@@ -1,12 +1,12 @@
 <p><a target="_blank" href="https://app.eraser.io/workspace/ZrZ2Y6GIWLepTjQg6cyc" id="edit-in-eraser-github-link"><img alt="Edit in Eraser" src="https://firebasestorage.googleapis.com/v0/b/second-petal-295822.appspot.com/o/images%2Fgithub%2FOpen%20in%20Eraser.svg?alt=media&amp;token=968381c8-a7e7-472a-8ed6-4a6626da5501"></a></p>
 
 # VoiceWise AI
- Generate tanscript, summary and action items from your notes in seconds. Streamline Your Workflow with Automated Transcription Action Item Management. Powered by Convex, Together.ai, and Whisper. 
+ Generate transcript, summary and action items from your notes in seconds. Streamline Your Workflow with Automated Transcription Action Item Management. Powered by Convex, Together.ai, and Whisper. 
 
 ### Live:
 [﻿VoiceWise AI](https://voice-wise-ai.vercel.app/) 
 
- [﻿Tech Stack](#tech-stack) [﻿Deploy Your Own](#deploy-your-own) 
+ [﻿Tech Stack](#tech-stack) [﻿Architecture Diagram](#deploy-your-own) [﻿ER Diagram](#deploy-your-own)  [﻿Deploy Your Own](#deploy-your-own)  
 
 ## Tech Stack
 - [﻿Convex](https://convex.dev/)  for the database and cloud functions
@@ -21,7 +21,14 @@
 
 
 ## Architecture Diagram
-![VoiceWiseAI - Architectural flow](/.eraser/ZrZ2Y6GIWLepTjQg6cyc___02a0ac4RaOW4qPyzxPn66zodRbA3___---figure---Gs3ipR2sZNY3WXNUannqr---figure---OX24u6sfVgINr1b9RXyYIg.png "VoiceWiseAI - Architectural flow")
+![VoiceWiseAI - Architectural flow](/.eraser/ZrZ2Y6GIWLepTjQg6cyc___02a0ac4RaOW4qPyzxPn66zodRbA3___---figure---nJkzplnc-aOMNSowXYJWa---figure---OX24u6sfVgINr1b9RXyYIg.png "VoiceWiseAI - Architectural flow")
+
+
+
+## ER Diagram
+![VoiceWise AI - ER Diagram](/.eraser/ZrZ2Y6GIWLepTjQg6cyc___02a0ac4RaOW4qPyzxPn66zodRbA3___---figure---RON7P-1iclv-RowTe6S14---figure---d7OBMd20UuHDAdxCZ_nMrA.png "VoiceWise AI - ER Diagram")
+
+
 
 ## Deploy Your Own
 You can deploy this template by setting up the following services and adding their environment variables:
