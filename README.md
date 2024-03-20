@@ -21,7 +21,7 @@
 
 
 ## Architecture Diagram
-![VoiceWiseAI - Architectural flow](/.eraser/ZrZ2Y6GIWLepTjQg6cyc___02a0ac4RaOW4qPyzxPn66zodRbA3___---figure---APxZm63rVzSUe_nnjFarN---figure---OX24u6sfVgINr1b9RXyYIg.png "VoiceWiseAI - Architectural flow")
+![VoiceWiseAI - Architectural flow](/.eraser/ZrZ2Y6GIWLepTjQg6cyc___02a0ac4RaOW4qPyzxPn66zodRbA3___---figure---Gs3ipR2sZNY3WXNUannqr---figure---OX24u6sfVgINr1b9RXyYIg.png "VoiceWiseAI - Architectural flow")
 
 ## Deploy Your Own
 You can deploy this template by setting up the following services and adding their environment variables:
