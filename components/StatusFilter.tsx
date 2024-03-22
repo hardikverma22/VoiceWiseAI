@@ -15,7 +15,7 @@ import {
   CommandSeparator,
 } from "@/components/ui/command";
 import {Popover, PopoverContent, PopoverTrigger} from "@/components/ui/popover";
-import {Status} from "@/app/actionitems/page";
+import {Status} from "@/app/(protected)/actionitems/page";
 
 const statusList: {
   value: Status;
@@ -58,6 +58,7 @@ export function StatusFilter({
           role="combobox"
           aria-expanded={open}
           className="w-[200px] justify-between"
+          size="sm"
         >
           {getDisplayTitle()}
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />

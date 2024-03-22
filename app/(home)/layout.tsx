@@ -1,6 +1,6 @@
 import type {Metadata} from "next";
 import {Lexend} from "next/font/google";
-import "./globals.css";
+import "../globals.css";
 import {Header} from "@/components/Header";
 import {Toaster} from "@/components/ui/sonner";
 
@@ -25,7 +25,7 @@ export default function RootLayout({
       <html lang="en">
         <body className={cn(lexend.className, "")}>
           <Header />
-          <main className="container lg:px-20 px-5 z-10 min-h-[calc(100dvh-72px)] mt-[72px]">
+          <main className="z-10 min-h-[calc(100dvh-72px)] mt-[72px]">
             {children}
             <Progress />
           </main>

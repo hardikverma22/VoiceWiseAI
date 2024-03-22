@@ -10,7 +10,10 @@ export default function Hero() {
     <section
       className="w-full 
                 flex justify-center items-center flex-col gap-10
-                min-h-[calc(100dvh-72px)] mt-[72px]"
+                min-h-[calc(100dvh-72px)] mt-[72px] 
+                bg-[url('/abstract.png')]
+                rounded-b-3xl
+                lg:px-20 px-5"
     >
       <h1
         className="font-bold text-center

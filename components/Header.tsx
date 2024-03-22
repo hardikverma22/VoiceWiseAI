@@ -8,7 +8,7 @@ export const Header = () => {
   const {isAuthenticated} = useConvexAuth();
   return (
     <header
-      className="w-full fixed top-0 z-[1000] dark:bg-black bg-white
+      className="w-full fixed top-0 z-[1000] bg-white
     border-b bottom-2 border-gray-300 h-fit"
     >
       <nav
