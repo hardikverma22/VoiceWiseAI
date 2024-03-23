@@ -2,7 +2,6 @@ import type {Metadata} from "next";
 import {Lexend} from "next/font/google";
 import "../globals.css";
 import {Header} from "@/components/Header";
-import {Toaster} from "@/components/ui/sonner";
 
 import ConvexClientProvider from "@/providers/ConvexClientProvider";
 import {cn} from "@/lib/utils";
@@ -29,7 +28,6 @@ export default function RootLayout({
             {children}
             <Progress />
           </main>
-          <Toaster theme="light" position="bottom-left" />
         </body>
       </html>
     </ConvexClientProvider>

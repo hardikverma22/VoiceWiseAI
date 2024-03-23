@@ -29,7 +29,7 @@ export default function RootLayout({
             {children}
             <Progress />
           </main>
-          <Toaster theme="light" position="bottom-left" />
+          <Toaster theme="light" position="bottom-left" richColors />
         </body>
       </html>
     </ConvexClientProvider>

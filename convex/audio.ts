@@ -149,7 +149,6 @@ export const removeNote = mutation({
     },
 });
 
-
 export const updatActionItemStatus = mutation({
     args: {
         id: v.id('actionItems'),
@@ -170,6 +169,31 @@ export const updatActionItemStatus = mutation({
 
             await ctx.db.patch(args.id, {
                 done: args.done
+            });
+        }
+    },
+});
+
+export const updatActionItemDueDate = mutation({
+    args: {
+        id: v.id('actionItems'),
+        dueDate: v.string()
+    },
+    handler: async (ctx, args) => {
+        const identity = await ctx.auth.getUserIdentity();
+        if (!identity) {
+            return null;
+        }
+        const { subject: userId } = identity;
+
+        const existing = await ctx.db.get(args.id);
+        if (existing) {
+            if (existing.userId !== userId) {
+                throw new ConvexError('Not your action Item');
+            }
+
+            await ctx.db.patch(args.id, {
+                dueDate: args.dueDate
             });
         }
     },

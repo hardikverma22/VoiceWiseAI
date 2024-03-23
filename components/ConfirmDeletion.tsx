@@ -33,7 +33,7 @@ const ConfirmDeletionAlertDialog = ({noteId}: {noteId: Id<"audioNotes">}) => {
 
   return (
     <AlertDialog open={open} onOpenChange={setOpen}>
-      <AlertDialogTrigger>
+      <AlertDialogTrigger asChild>
         <Button
           onClick={handleConfirmation}
           variant="link"

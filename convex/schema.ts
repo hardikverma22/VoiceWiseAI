@@ -31,7 +31,8 @@ export default defineSchema({
         audioNoteId: v.id('audioNotes'),
         userId: v.string(),
         task: v.string(),
-        done: v.boolean()
+        done: v.boolean(),
+        dueDate: v.optional(v.string())
     })
         .index('by_noteId', ['audioNoteId', 'done'])
         .index('by_userId', ['userId', 'done'])
