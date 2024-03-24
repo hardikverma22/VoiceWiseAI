@@ -83,17 +83,25 @@ const ActionItems = ({
                   </div>
                 </div>
               )}
-              {/* <RenderDate creationTime={item._creationTime} /> */}
             </div>
-            <div className="flex gap-5 justify-start items-center pl-6 ">
-              <div className="flex justify-center items-center gap-1">
-                <CalendarIcon className="h-5 w-5" />
-                <span className="text-gray-600 text-sm">Created On: </span>
+            <div
+              className="flex gap-5  
+                        pl-6
+                        xl:flex-row flex-col 
+                        xl:justify-start xl:items-center items-start"
+            >
+              <div className="flex justify-center items-center gap-3">
+                <div className="flex gap-1">
+                  <CalendarIcon className="h-5 w-5" />
+                  <span className="text-gray-600 text-sm">Created On: </span>
+                </div>
                 <span>{format(new Date(item._creationTime), "PPP")}</span>
               </div>
-              <div className="flex justify-center items-center gap-1">
-                <CalendarIcon className="h-5 w-5" />
-                <span className="text-gray-600 text-sm">Due Date: </span>
+              <div className="flex justify-center items-center gap-2">
+                <div className="flex gap-1">
+                  <CalendarIcon className="h-5 w-5" />
+                  <span className="text-gray-600 text-sm">Due Date: </span>
+                </div>
                 <DatePicker
                   dueDate={item.dueDate}
                   id={item._id}
