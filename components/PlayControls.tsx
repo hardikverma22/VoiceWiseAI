@@ -1,7 +1,7 @@
-import {TooltipContainer} from "@/components/TooltipContainer";
-import {Button} from "@/components/ui/button";
-import {cn} from "@/lib/utils";
-import {PauseIcon, PlayIcon} from "lucide-react";
+import { TooltipContainer } from "@/components/TooltipContainer";
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
+import { PauseIcon, PlayIcon } from "lucide-react";
 
 type PlayControlsProps = {
   isPlaying: boolean;
@@ -42,9 +42,13 @@ const PlayControls = ({
         />
       </div>
       <div className="relative">
-        <TooltipContainer tooltipText="Process Audio">
+        <TooltipContainer
+          // tooltipText="Process Audio"
+          tooltipText="Service under maintenance"
+        >
           <Button
-            onClick={triggerProcessAudio}
+            // onClick={triggerProcessAudio}
+            onClick={() => {}}
             className="bg-offWhite text-gray-500 rounded-full h-14 w-14 shadow-xl z-50
                   hover:bg-offWhite/50 hover:scale-105 duration-75 transition-all 
                   hover:border-2 hover:shadow-xl"

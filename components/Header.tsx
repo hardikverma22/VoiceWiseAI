@@ -1,15 +1,20 @@
 "use client";
 import Loader from "@/components/Loader";
-import {SignInButton, UserButton} from "@clerk/nextjs";
-import {AuthLoading, Authenticated, Unauthenticated, useConvexAuth} from "convex/react";
+import { SignInButton, UserButton } from "@clerk/nextjs";
+import {
+  AuthLoading,
+  Authenticated,
+  Unauthenticated,
+  useConvexAuth,
+} from "convex/react";
 import Link from "next/link";
 
 export const Header = () => {
-  const {isAuthenticated} = useConvexAuth();
+  const { isAuthenticated } = useConvexAuth();
   return (
     <header
       className="w-full fixed top-0 z-[1000] bg-white
-    border-b bottom-2 border-gray-300 h-fit"
+    border-b bottom-2 border-gray-50 h-fit"
     >
       <nav
         className="container flex justify-between items-start
